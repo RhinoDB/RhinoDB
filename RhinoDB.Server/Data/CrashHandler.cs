@@ -5,6 +5,11 @@ namespace RhinoDB.Server.Data;
 
 public static class CrashHandler
 {
+    /// <summary>
+    /// Reports an exception and generates a crash report. This method logs an error message indicating that a crash report has been generated, then exits the application with a status code
+    /// of 1.
+    /// </summary>
+    /// <param name="ex">The exception to report.</param>
     public static void ReportAndExit(Exception ex)
     {
         string file = Report(ex);
@@ -13,6 +18,11 @@ public static class CrashHandler
         Environment.Exit(1);
     }
 
+    /// <summary>
+    /// Reports an exception and generates a crash report.
+    /// </summary>
+    /// <param name="ex">The exception to report.</param>
+    /// <returns>The path to the generated crash report file.</returns>
     public static string Report(Exception ex)
     {
         DateTime now = DateTime.Now;
