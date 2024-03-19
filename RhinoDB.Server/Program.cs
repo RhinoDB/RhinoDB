@@ -38,6 +38,7 @@ internal static class Program
         }
 
 
+        // Add the middleware to the pipeline.
         app.UseRouting();
         app.MapControllers();
         app.MapRazorPages();
@@ -45,6 +46,7 @@ internal static class Program
         app.UseDefaultFiles();
         app.UseStaticFiles();
 
+        // Handle application exit.
         AppDomain.CurrentDomain.ProcessExit += (s, e) =>
         {
             ApplicationConfiguration.Instance.Save();
@@ -53,6 +55,8 @@ internal static class Program
             Log.CloseAndFlush();
         };
 
+
+        // Handle unhandled exceptions.
         AppDomain.CurrentDomain.UnhandledException += (s, e) =>
         {
             if (e.ExceptionObject is Exception exception)
@@ -64,6 +68,9 @@ internal static class Program
         app.Run($"http://localhost:{ApplicationConfiguration.Instance.Port}");
     }
 
+    /// <summary>
+    /// Configures the logging for the application.
+    /// </summary>
     private static void ConfigureLogging()
     {
         // Initialize Logging
