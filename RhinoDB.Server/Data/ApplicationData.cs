@@ -4,7 +4,7 @@ namespace RhinoDB.Server.Data;
 
 public static class ApplicationData
 {
-    public static string ApplicationName { get; } = "RhinoDB.Server";
+    public static string ApplicationName { get; } = "RhinoDB";
     public static TimeSpan UpTime => DateTime.Now - ApplicationConfiguration.Instance.StartupTime;
     public static Assembly MainAssembly { get; } = Assembly.GetExecutingAssembly();
     public static AssemblyName? AssemblyName { get; } = MainAssembly.GetName();
@@ -18,7 +18,11 @@ public static class ApplicationData
             Version,
             UpTime,
             ApplicationConfiguration.Instance.StartupTime,
+#if DEBUG
+            Environment = "DEV",
+#else
             Environment = "RELEASE",
+#endif
             Config = ApplicationConfiguration.Instance,
         };
     }
